@@ -31,7 +31,7 @@
 </head>
 <body>
 <div class="container mt-5">
-    <h2 class="mb-4 text-center">Lista de Usuarios</h2>
+    <h2 class="mb-4 text-center"> Lista de Usuarios </h2>
 
     <!-- Botón para mostrar modal Agregar -->
     <div class="mb-3 text-end">
@@ -42,8 +42,14 @@
         <table class="table table-striped table-bordered table-hover align-middle">
             <thead class="table-dark">
                 <tr>
-                    <th>ID</th><th>Nombre</th><th>Apellido</th><th>Teléfono</th>
-                    <th>Correo</th><th>Contraseña</th><th>Fecha Registro</th><th>Acciones</th>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Contraseña</th>
+                    <th>Fecha Registro</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
