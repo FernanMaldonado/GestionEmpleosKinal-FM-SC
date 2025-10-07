@@ -1,0 +1,1261 @@
+/*
+  Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+  Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+
+  Created on : 19 jul 2025, 12:25:56
+  Author     : PC
+*/
+
+/*------------------------------------*/
+/* Reset básico */
+/*------------------------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding-top: 100px; /* Para dejar espacio por header fijo */
+    background-color: grey;
+}
+
+/*------------------------------------*/
+/* Header fijo principal */
+/*------------------------------------*/
+.fondo {
+    display: flex;
+    align-items: center;
+    background-color: black;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.fondo img {
+    height: 60px;
+    width: auto;
+    filter: brightness(0) invert(1); /* Negro a blanco */
+}
+
+.TituloContenedor {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+/*------------------------------------*/
+/* Isla principal con iconos flotantes */
+/*------------------------------------*/
+.isla {
+    width: 250px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    padding: 5px;
+    z-index: 999;
+}
+
+/* Iconos dentro de la isla */
+.img-isla {
+    width: 25px;
+    height: 25px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.img-isla:hover {
+    transform: scale(1.2);
+}
+
+/*------------------------------------*/
+/* Menú desplegable (oculto por defecto) */
+/*------------------------------------*/
+.menu-desplegable {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #0099ff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 16px;
+    z-index: 998;
+}
+
+/* Mostrar menú desplegable cuando tiene clase .show */
+.menu-desplegable.show {
+    display: block;
+}
+
+/*------------------------------------*/
+/* Botón flotante para menú móvil */
+/*------------------------------------*/
+.toggle-button {
+    display: none;
+    width: 50px;
+    height: 50px;
+    background-color: #0099ff;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 1000;
+}
+
+/* Mostrar botón toggle solo en pantallas pequeñas */
+@media (max-width: 800px) {
+    .isla {
+        display: none;
+    }
+
+    .toggle-button {
+        display: block;
+    }
+}
+
+/*------------------------------------*/
+/* Menú flotante tipo GitHub */
+/*------------------------------------*/
+.menu-flotante {
+    display: none;
+    position: fixed;
+    top: 85px;
+    right: 60px;
+    background-color: #333;
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 999;
+    width: 160px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.menu-flotante.show {
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.menu-flotante ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-flotante li {
+    padding: 10px;
+    border-bottom: 1px solid #555;
+}
+
+.menu-flotante li:last-child {
+    border-bottom: none;
+}
+
+.menu-flotante li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    display: block;
+}
+
+.menu-flotante li:hover {
+    background-color: #555;
+}
+
+.menu-flotante summary {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    display: block;
+}
+/*------------------------------------*/
+/* Responsivo para encabezado */
+/*------------------------------------*/
+@media (max-width: 800px) {
+    .fondo {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 25px;
+    }
+
+    .TituloContenedor {
+        margin-left: 0;
+        font-size: 20px;
+    }
+}
+
+/*------------------------------------*/
+/* Tooltip para íconos en isla */
+/*------------------------------------*/
+.isla li {
+    position: relative;
+    list-style: none;
+}
+
+.isla li::after {
+    content: attr(data-title);
+    position: absolute;
+    bottom: 140%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 11px;
+    white-space: nowrap;
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+}
+
+.isla li::before {
+    content: "";
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.85) transparent transparent transparent;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 998;
+}
+
+.isla li:hover::after,
+.isla li:hover::before {
+    opacity: 1;
+}
+
+/*------------------------------------*/
+/* Contenedor del perfil (lupa) */
+/*------------------------------------*/
+.perfil-contenedor {
+    position: relative;
+}
+
+/*------------------------------------*/
+/* Buscador desplegable */
+/*------------------------------------*/
+.buscador {
+    display: none;
+    position: absolute;
+    top: 65px;
+    left: 0%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 8px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 999;
+    animation: deslizar 0.3s ease-out;
+}
+
+.buscador input {
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    border-radius: 15px;
+    width: 150px;
+}
+
+.buscador button {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    background: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Buscador alternativo */
+.buscador2 {
+    display: none;
+    position: absolute;
+    top: -5px;
+    right: 75%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 8px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 999;
+    animation: deslizar 0.3s ease-out;
+}
+
+.buscador2 input {
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    border-radius: 15px;
+    width: 200px;
+}
+
+.buscador2 button {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    background: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+/*------------------------------------*/
+/* Animación para el buscador */
+/*------------------------------------*/
+@keyframes deslizar {
+    0% {
+        transform: translateX(-50%) translateY(-10px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+}
+
+/*------------------------------------*/
+/* Ícono de lupa móvil */
+/*------------------------------------*/
+.icono-lupa-movil {
+    display: none;
+    align-content: center;
+    text-align: center;
+    background: white;
+    position: fixed;
+    top: 25px;
+    right: 90px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 1001;
+    border-radius: 20px;
+}
+
+.icono-lupa-movil img {
+    width: 60%;
+    height: 60%;
+    transition: transform 0.3s ease;
+}
+
+.icono-lupa-movil:hover img {
+    transform: scale(1.2);
+}
+
+/* Mostrar lupa móvil y ocultar lupa escritorio */
+@media (max-width: 800px) {
+    .icono-lupa-movil {
+        display: block;
+    }
+
+    .perfil-contenedor {
+        display: none;
+    }
+
+    .isla [data-title="Busqueda"] {
+        display: none;
+    }
+}
+
+/*------------------------------------*/
+/* Sección menu funkos (productos) */
+/*------------------------------------*/
+.menu-funkos {
+    padding: 75px;
+}
+
+.menu-funkos h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Contenedor flexible de funkos */
+.contenedor-funkos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+    padding: 50px;
+}
+
+/* Item individual funko */
+.funko-item {
+    position: relative;
+    width: 250px;
+    height: 300px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 15px;
+    transition: transform 0.5s ease;
+    z-index: 0;
+    background: white; /* Fondo para que el borde animado se vea bien */
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.funko-item img {
+    width: 150px;
+    height: auto;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+.funko-item:hover {
+    transform: scale(1.025);
+    background: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet, red);
+    background-size: 600% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: arcoiris-fondo2 10s linear infinite;
+}
+
+.funko-item p {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.3;
+}
+
+/*------------------------------------*/
+/* Animación para mover el gradiente de fondo */
+/*------------------------------------*/
+@keyframes arcoiris-fondo2 {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+/*------------------------------------*/
+/* Pseudo-elemento para borde animado arcoíris */
+/*------------------------------------*/
+.funko-item::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    border-radius: 15px;
+    padding: 3px; /* Ancho del borde */
+    background: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet, red);
+    background-size: 600% 100%;
+    animation: arcoiris-borde 8s linear infinite;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    z-index: -1;
+}
+
+/*------------------------------------*/
+/* Animación para mover el gradiente del borde */
+/*------------------------------------*/
+@keyframes arcoiris-borde {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+/* From Uiverse.io by SharpTH */
+.btn-cssbuttons {
+    --btn-color: #3C6E71  ;
+    position: fixed;
+    top: 110px;
+    right: 2%;
+    padding: 16px 32px;
+    font-family: Roboto, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1;
+    color: white;
+    background: none;
+    border: none;
+    outline: none;
+    overflow: hidden;
+    cursor: pointer;
+    filter: drop-shadow(0 2px 8px rgba(39, 94, 254, 0.32));
+    transition: 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.btn-cssbuttons:hover {
+    --btn-color: #353535 ;
+}
+
+.btn-cssbuttons::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background: var(--btn-color);
+    border-radius: 24px;
+    transition: 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.btn-cssbuttons span,
+.btn-cssbuttons span span {
+    display: inline-flex;
+    vertical-align: middle;
+    transition: 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.btn-cssbuttons span {
+    transition-delay: 0.05s;
+}
+
+.btn-cssbuttons span:first-child {
+    padding-right: 7px;
+}
+
+.btn-cssbuttons span span {
+    margin-left: 8px;
+    transition-delay: 0.1s;
+}
+
+.btn-cssbuttons ul {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    transform: translateY(-50%);
+}
+
+.btn-cssbuttons ul li {
+    flex: 1;
+}
+
+.btn-cssbuttons ul li a {
+    display: inline-flex;
+    height: 24px;
+    vertical-align: middle;
+    transform: translateY(55px);
+    transition: 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.btn-cssbuttons ul li a:hover {
+    opacity: 0.5;
+}
+
+.btn-cssbuttons:hover::before {
+    transform: scale(1.2);
+}
+
+.btn-cssbuttons:hover span,
+.btn-cssbuttons:hover span span {
+    transform: translateY(-55px);
+}
+
+.btn-cssbuttons:hover ul li a {
+    transform: translateY(0);
+}
+
+.btn-cssbuttons:hover ul li:nth-child(1) a {
+    transition-delay: 0.15s;
+}
+
+.btn-cssbuttons:hover ul li:nth-child(2) a {
+    transition-delay: 0.2s;
+}
+
+.btn-cssbuttons:hover ul li:nth-child(3) a {
+    transition-delay: 0.25s;
+}
+
+.btn-cssbuttons .icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}
+
+.footer {
+    background-color: #1e1e1e;
+    position: relative;
+    top: 100%;
+    bottom: 0%;
+    color: white;
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 14px;
+    margin-top: 20px;
+    border-top: 2px solid #444;
+}
+
+.footer-contenido p {
+    margin: 5px 0;
+}
+
+@media (max-width: 800px) {
+    .btn-cssbuttons {
+        width: 140px;
+        padding: 8px 12px;
+        font-size: 12px;
+        top: 170px;
+        right: 2%;
+    }
+
+    .btn-cssbuttons span {
+        font-size: 12px;
+    }
+
+    .btn-cssbuttons ul {
+        flex-direction: file;
+        align-items: center;
+        gap: 7px;
+    }
+
+    .btn-cssbuttons ul li a {
+        transform: translateY(55px) !important;
+    }
+
+    .btn-cssbuttons:hover ul li a {
+        transform: translateY(0) !important;
+    }
+
+    .btn-cssbuttons:hover ul li:nth-child(1) a {
+        transition-delay: 0.1s;
+    }
+
+    .btn-cssbuttons:hover ul li:nth-child(2) a {
+        transition-delay: 0.2s;
+    }
+
+    .btn-cssbuttons:hover ul li:nth-child(3) a {
+        transition-delay: 0.3s;
+    }
+}
+
+
+.carrusel-container {
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.carrusel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+
+.carrusel img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.boton-carrusel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.anterior {
+    left: 10px;
+}
+
+.siguiente {
+    right: 10px;
+}
+
+
+
+/* Botones en línea */
+.container-botones {
+    display: flex;
+    gap: 10px;
+    position: fixed;
+    right: 25px;
+    top: 20px;
+}
+
+/* Estilo del botón */
+.btns {
+    outline: none;
+    cursor: pointer;
+    border: none;
+    padding: 0.9rem 2rem;
+    margin: 0;
+    font-family: inherit;
+    font-size: 17px;
+    position: relative;
+    display: inline-block;
+    letter-spacing: 0.05rem;
+    font-weight: 700;
+    border-radius: 500px;
+    overflow: hidden;
+    background-color: #3C6E71; /* Fondo base */
+}
+
+.btns span {
+    position: relative;
+    z-index: 10;
+    transition: color 0.4s;
+    color: #D9D9D9 ; /* Letras normales negras */
+}
+
+.btns:hover span {
+    color: #D9D9D9; /* Letras hover */
+}
+
+.btns::before {
+    content: "";
+    background-color: #353535; /* Fondo hover */
+    width: 120%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: -10%;
+    transform: skew(30deg);
+    transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+    z-index: 0;
+}
+
+.btns:hover::before {
+    transform: translate3d(100%, 0, 0);
+}
+
+/* Ocultar botones desde 800px hacia abajo */
+@media (max-width: 800px) {
+    .container-botones {
+        display: none;
+    }
+}
+
+/* Barra de navegación ejemplo */
+.navbar {
+    background-color: #284863;
+    color: #D9D9D9;
+    padding: 10px;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('https://wallpapercave.com/wp/wp2830598.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Posicionamiento fijo respecto al borde */
+/* Posicionamiento fijo respecto al borde */
+
+.container {
+
+    position: relative;
+
+    justify-content: center;
+
+    flex-direction: column;
+
+    padding: 0;
+
+}
+
+/* Título */
+
+.titulo {
+
+    font-size: 3rem;
+
+    color: #284863;
+
+    margin-bottom: 20px;
+
+}
+
+.cuadro {
+    position: relative;  /* Cambiado a absolute para posicionarlo dentro de su contenedor */
+    top: 250px;  /* Posiciona al 50% desde el contenedor */
+    left: 50%; /* Lo coloca al 50% de la anchura */
+    transform: translate(-50%, -50%); /* Lo centra perfectamente (horizontal y vertical) */
+    width: 800px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.5s ease; /* Transición suave */
+}
+
+
+
+/* Texto justificado */
+.cuadro .texto {
+    text-align: justify;
+    width: 80%;
+}
+
+.cuadro:hover{
+    background-color: beige;
+}
+/* Botón */
+.btn-conocenos {
+    margin-top: 40px;
+    width: 250px;
+    height: 50px;
+    font-size: 15px;
+    padding: 10px 20px;
+    border: none;
+    background: #3C6E71;
+    color: white;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-conocenos:hover {
+    background: #353535;
+}
+
+/* Responsive: centrar todo al reducir pantalla */
+@media (max-width: 800px) {
+    .container {
+        position: static;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .cuadro {
+        width: 400px;
+        height: 800px;
+    }
+}
+
+
+.carrusel-container {
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.carrusel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+
+.carrusel img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.boton-carrusel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.anterior {
+    left: 10px;
+}
+
+.siguiente {
+    right: 10px;
+}
+
+/* From Uiverse.io by andrew-demchenk0 */
+.button {
+    position: relative;
+    width: 150px;
+    height: 40px;
+    top :5%;
+    left: 17%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 1px solid #34974d;
+    background-color: #3C6E71 ;
+}
+
+.button, .button__icon, .button__text {
+    transition: all 0.3s;
+}
+
+.button .button__text {
+    transform: translateX(30px);
+    color: #D9D9D9 ;
+    font-weight: 600;
+}
+
+.button .button__icon {
+    position: absolute;
+    transform: translateX(109px);
+    height: 100%;
+    width: 39px;
+    background-color: #353535;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button .svg {
+    width: 30px;
+    stroke: #fff;
+}
+
+.button:hover {
+    background: #353535 ;
+}
+
+.button:hover .button__text {
+    color: #D9D9D9 ;
+}
+
+.button:hover .button__icon {
+    width: 148px;
+    transform: translateX(0);
+}
+
+.button:active .button__icon {
+    background-color: #2e8644;
+}
+
+.button:active {
+    border: 1px solid #2e8644;
+}
+
+.container-botones {
+    display: flex;
+    gap: 10px;
+    position: fixed;
+    right: 25px;
+    top: 20px;
+}
+
+/* Estilo del botón */
+.btns {
+    outline: none;
+    cursor: pointer;
+    border: none;
+    padding: 0.9rem 2rem;
+    margin: 0;
+    font-family: inherit;
+    font-size: 17px;
+    position: relative;
+    display: inline-block;
+    letter-spacing: 0.05rem;
+    font-weight: 700;
+    border-radius: 500px;
+    overflow: hidden;
+    background: #3C6E71; /* Fondo base */
+}
+
+.btns span {
+    position: relative;
+    z-index: 10;
+    transition: color 0.4s;
+    color: black; /* Letras normales negras */
+}
+
+.btns:hover span {
+    color: #D9D9D9; /* Letras hover */
+}
+
+.btns::before {
+    content: "";
+    background: #353535; /* Fondo hover */
+    width: 120%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: -10%;
+    transform: skew(30deg);
+    transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+    z-index: 0;
+}
+
+.btns:hover::before {
+    transform: translate3d(100%, 0, 0);
+}
+
+/* Ocultar botones desde 800px hacia abajo */
+@media (max-width: 800px) {
+    .container-botones {
+        display: none;
+    }
+
+    .imagenb {
+        width: 300px;
+        height: 100px;
+        text-align: center;
+    }
+
+    .Promocion img {
+        position: absolute; /* Para poder mover la imagen */
+        top: 50px; /* Espacio desde la parte superior del contenedor */
+        left: 50%; /* Lo posiciona a la mitad del contenedor */
+        transform: translateX(-50%); /* Ajuste para centrar la imagen de manera precisa */
+        width: 300px; /* <<-- CHANGE THIS TO 300px -->> */
+        height: auto; /* It's usually better to keep height: auto for responsive images */
+    }
+}
+
+/* Barra de navegación ejemplo */
+.navbar {
+    background-color: #284863;
+    color: #D9D9D9;
+    padding: 10px;
+}
+
+.imagenb {
+    position: relative;
+    width: 800px;
+    height: 600px;
+}
+
+.Promocion {
+    position: relative;
+    padding: 40px; /* Mantener la proporción de la imagen */
+}
+
+.Promocion img {
+    position: absolute; /* Para poder mover la imagen */
+    top: 50px; /* Espacio desde la parte superior del contenedor */
+    left: 50%; /* Lo posiciona a la mitad del contenedor */
+    transform: translateX(-50%); /* Ajuste para centrar la imagen de manera precisa */
+    width: 477px; /* O puedes poner un tamaño fijo, como 600px, según lo necesites */
+    height: auto;
+}
+
+.toggle-button2 {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background-color: #0099ff;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    position: fixed;
+    top: 25px;
+    right: 25px;
+}
+
+.menu-flotante2 {
+    display: none;
+    position: fixed;
+    top: 85px;
+    right: 60px;
+    background-color: #333;
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 999;
+    width: 160px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.menu-flotante2.show {
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.menu-flotante2 ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-flotante2 li {
+    padding: 10px;
+    border-bottom: 1px solid #555;
+}
+
+.menu-flotante2 li:last-child {
+    border-bottom: none;
+}
+
+.menu-flotante2 li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    display: block;
+}
+
+.menu-flotante2 li:hover {
+    background-color: #555;
+}
+
+.oculto {
+    display: none;
+}
+
+/* From Uiverse.io by gharsh11032000 */ 
+.buttone {
+  cursor: pointer;
+  position: relative;
+  padding: 30px 50px;
+  font-size: 18px;
+  color: rgb(193, 163, 98);
+  border: 2px solid rgb(193, 163, 98);
+  border-radius: 34px;
+  background-color: transparent;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  overflow: hidden;
+  margin: 8px; /* Espacio entre botones */
+}
+
+.buttone::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: inherit;
+  scale: 0;
+  z-index: -1;
+  background-color: rgb(193, 163, 98);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.buttone:hover::before {
+  scale: 3;
+}
+
+.buttone:hover {
+  color: #212121;
+  scale: 1.1;
+  box-shadow: 0 0px 20px rgba(193, 163, 98, 0.4);
+}
+
+.buttone:active {
+  scale: 1;
+}
+
+/* Contenedor de botones */
+.buttone-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los botones se ajusten a nuevas líneas */
+  justify-content: center; /* Centra los botones en el contenedor */
+  align-items: center;
+  gap: 16px; /* Espacio entre los botones */
+  padding: 20px;
+}
+
+/* Responsividad: ajustar el tamaño de los botones en pantallas pequeñas */
+@media (max-width: 768px) {
+  .buttone {
+    font-size: 16px; /* Reducir el tamaño de la fuente */
+    padding: 10px 25px; /* Reducir el tamaño del padding */
+  }
+  
+  /* Contenedor de botones */
+  .buttone-container {
+    position: relative;
+    top: 50px; /* Mover el contenedor a 250px desde el borde superior */
+  }
+}
+
+
+.footer2 {
+    background-color: #1e1e1e;
+    position: absolute;
+    width: 100%;
+    bottom: 0%;
+    color: white;
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 14px;
+    margin-top: 20px;
+    border-top: 2px solid #444;
+}
+
+.footer-contenido2 p {
+    margin: 5px 0;
+}
+
+.Ajuste {
+    font-size: 15px;
+    position: relative;
+    top: 15px;
+    color: #353535;
+    text-align: center;
+    padding: 10px;
+}
+
+@media (max-width: 850px) {
+    .Ajuste {
+        position: relative;
+        top:45px;
+        font-size: 10px;
+        padding: 10px;
+    }
+}

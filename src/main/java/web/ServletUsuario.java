@@ -35,7 +35,7 @@ public class ServletUsuario extends HttpServlet {
                 break;
             case "mostrarAgregar":
                 req.setAttribute("mostrarModalAgregar", true);
-                listarUsuarios(req, resp); // carga tabla y muestra modal
+                listarUsuarios(req, resp);
                 break;
             default:
                 listarUsuarios(req, resp);

@@ -35,7 +35,9 @@
     <body>
         <div class="container mt-5">
             <h2 class="mb-4 text-center">Lista de Empresas</h2>
-
+            <div class="mb-3 text-end">
+                <a href="PaginaMenuAdministradores.jsp" class="btn">Regresar a Menu Adminstradores</a>
+            </div>
             <!-- Botón para mostrar modal Agregar -->
             <div class="mb-3 text-end">
                 <a href="ServletEmpresa?accion=mostrarAgregar" class="btn btn-success">Agregar Empresas</a>

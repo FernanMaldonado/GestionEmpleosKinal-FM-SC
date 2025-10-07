@@ -4,6 +4,7 @@ model\AdministradoresPojo.class
 dao\UsuarioDao.class
 web\ServletEmpresa.class
 dao\EmpresasDao.class
+model\CurriculumPojo.class
 web\ServletAdministrador.class
 web\ServletUsuario.class
 model\UsuarioPojo.class

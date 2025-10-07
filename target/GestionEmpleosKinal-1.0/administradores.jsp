@@ -36,7 +36,7 @@
         <div class="container mt-5">
             <h2 class="mb-4 text-center">Lista de Administrador</h2>
             <div class="mb-3 text-end">
-                <a href="index.html" class="btn">Regresar a Menu Adminstradores</a>
+                <a href="PaginaMenuAdministradores.jsp" class="btn">Regresar a Menu Adminstradores</a>
             </div>
             <!-- Botón para mostrar modal Agregar -->
             <div class="mb-3 text-end">
