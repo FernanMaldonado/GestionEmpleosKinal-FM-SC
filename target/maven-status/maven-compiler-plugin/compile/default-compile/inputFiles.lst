@@ -1,3 +1,9 @@
-C:\Users\PC\Documents\NetBeansProjects\GestionEmpleosKinal\src\main\java\web\ServletUsuario.java
-C:\Users\PC\Documents\NetBeansProjects\GestionEmpleosKinal\src\main\java\dao\UsuarioDao.java
-C:\Users\PC\Documents\NetBeansProjects\GestionEmpleosKinal\src\main\java\model\UsuarioPojo.java
+C:\GestionEmpleosKinal-FM-SC\src\main\java\web\ServletUsuario.java
+C:\GestionEmpleosKinal-FM-SC\src\main\java\model\UsuarioPojo.java
+C:\GestionEmpleosKinal-FM-SC\src\main\java\model\AdministradoresPojo.java
+C:\GestionEmpleosKinal-FM-SC\src\main\java\model\EmpresasPojo.java
+C:\GestionEmpleosKinal-FM-SC\src\main\java\web\ServletEmpresa.java
+C:\GestionEmpleosKinal-FM-SC\src\main\java\dao\AdministradoresDao.java
+C:\GestionEmpleosKinal-FM-SC\src\main\java\dao\EmpresasDao.java
+C:\GestionEmpleosKinal-FM-SC\src\main\java\dao\UsuarioDao.java
+C:\GestionEmpleosKinal-FM-SC\src\main\java\web\ServletAdministrador.java

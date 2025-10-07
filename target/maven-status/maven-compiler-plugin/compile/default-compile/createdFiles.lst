@@ -1,3 +1,9 @@
+dao\AdministradoresDao.class
+model\EmpresasPojo.class
+model\AdministradoresPojo.class
+dao\UsuarioDao.class
+web\ServletEmpresa.class
+dao\EmpresasDao.class
+web\ServletAdministrador.class
 web\ServletUsuario.class
 model\UsuarioPojo.class
-dao\UsuarioDao.class
