@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date; // para el campo fechaRegistro
 
 @Entity
-@Table(name = "Usuarios")
+@Table(name = "usuarios")
 public class UsuarioPojo {
     
     @Id
