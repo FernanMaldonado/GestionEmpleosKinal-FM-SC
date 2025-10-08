@@ -1,8 +1,12 @@
 model\EmpresasPojo.class
+dao\SolicitudDao.class
 dao\VacantesDao.class
+model\SolicitudPojo.class
 dao\CurriculumDao.class
+web\EnviarSolicitudServlet.class
 dao\EmpresasDao.class
 model\CurriculumPojo.class
+web\SolicitudesServlet.class
 web\ServletUsuario.class
 web\ServletVacantes.class
 dao\AdministradoresDao.class

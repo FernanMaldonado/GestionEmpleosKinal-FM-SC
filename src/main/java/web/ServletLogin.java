@@ -47,7 +47,7 @@ public class ServletLogin extends HttpServlet {
             if (empresa != null && empresa.getContrasena().equals(contrasena)) {
                 HttpSession sesion = request.getSession();
                 sesion.setAttribute("empresa", empresa);
-                response.sendRedirect("empresas.jsp");
+                response.sendRedirect("PaginaMenuEmpresas.jsp");
                 return;
             }
 

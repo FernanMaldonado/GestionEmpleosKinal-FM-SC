@@ -1,11 +1,15 @@
+C:\GestionEmpleosKinal-FM-SC\src\main\java\dao\SolicitudDao.java
 C:\GestionEmpleosKinal-FM-SC\src\main\java\web\ServletUsuario.java
+C:\GestionEmpleosKinal-FM-SC\src\main\java\web\SolicitudesServlet.java
 C:\GestionEmpleosKinal-FM-SC\src\main\java\model\UsuarioPojo.java
 C:\GestionEmpleosKinal-FM-SC\src\main\java\model\AdministradoresPojo.java
 C:\GestionEmpleosKinal-FM-SC\src\main\java\web\ServletRegistro.java
 C:\GestionEmpleosKinal-FM-SC\src\main\java\model\CurriculumPojo.java
+C:\GestionEmpleosKinal-FM-SC\src\main\java\model\SolicitudPojo.java
 C:\GestionEmpleosKinal-FM-SC\src\main\java\web\ServletLogin.java
 C:\GestionEmpleosKinal-FM-SC\src\main\java\dao\EmpresasDao.java
 C:\GestionEmpleosKinal-FM-SC\src\main\java\model\VacantesPojo.java
+C:\GestionEmpleosKinal-FM-SC\src\main\java\web\EnviarSolicitudServlet.java
 C:\GestionEmpleosKinal-FM-SC\src\main\java\model\EmpresasPojo.java
 C:\GestionEmpleosKinal-FM-SC\src\main\java\web\ServletEmpresa.java
 C:\GestionEmpleosKinal-FM-SC\src\main\java\dao\CurriculumDao.java

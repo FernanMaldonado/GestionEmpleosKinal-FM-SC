@@ -61,6 +61,8 @@ public class ServletEmpresa extends HttpServlet {
             actualizar(req, resp);
         } else if ("agregar".equals(accion)) {
             agregar(req, resp);
+        } else if ("agregarEmpresa".equals(accion)) {
+            agregarEmpresa(req, resp);
         }
     }
 
@@ -108,4 +110,21 @@ public class ServletEmpresa extends HttpServlet {
         dao.agregar(u);
         resp.sendRedirect("ServletEmpresa?accion=listar");
     }
+    
+    private void agregarEmpresa(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        EmpresasPojo u = new EmpresasPojo();
+        u.setNombreEmpresa(req.getParameter("nombreEmpresa"));
+        u.setCorreoEmpresa(req.getParameter("correoEmpresa"));
+        u.setTelefonoEmpresa(req.getParameter("telefonoEmpresa"));
+        u.setContrasena(req.getParameter("contrasena"));
+        u.setDireccion(req.getParameter("direccion"));
+        u.setFechaRegistro(new java.sql.Date(System.currentTimeMillis()));
+
+        dao.agregar(u);
+        resp.sendRedirect("PaginaMenuEmpresas.jsp");
+    }
+    
+    
 }
