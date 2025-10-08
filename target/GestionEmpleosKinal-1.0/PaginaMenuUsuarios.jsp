@@ -141,7 +141,7 @@
 
                 <a href="ServletVacantes?accion=oportunidades">
                     <div class="card">
-                        <h3>Oportunidades</h3>
+                        <h3>Oportunidades Laborales</h3>
                         <p>Descubre empleos recomendados según tu perfil.</p>
                     </div>
                 </a>
