@@ -24,8 +24,8 @@
             <a href="ServletUsuario?accion=listar"><button class="buttone">Usuarios</button></a>
             <a href="ServletAdministrador?accion=listar"><button class="buttone">Administradores</button></a>
             <a href="ServletEmpresa?accion=listar"><button class="buttone">Empresas</button></a>
-            <a href="ServletRecibos?accion=listar"><button class="buttone">Curriculum</button></a>
-            <a href="ServletCompras?accion=listar"><button class="buttone">Vacantes</button></a>
+            <a href="ServletCurriculum?accion=listar"><button class="buttone">Curriculum</button></a>
+            <a href="ServletVacantes?accion=listar"><button class="buttone">Vacantes</button></a>
         </div>
 
         <div id="contenedorModalCompras"></div>
