@@ -152,7 +152,7 @@
         <div class="modal fade" id="modalAgregarCurriculum" tabindex="-1" aria-labelledby="modalAgregarLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
-                    <form action="ServletCurriculum" method="post">
+                    <form action="ServletCurriculum?accion=agregar" method="post">
                         <input type="hidden" name="accion" value="agregar">
                         <div class="modal-header">
                             <h5 class="modal-title" id="modalAgregarLabel">Agregar Curriculum</h5>
@@ -195,60 +195,6 @@
                             <button type="submit" class="btn btn-success">Guardar Curriculum</button>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Editar Curriculum -->
-        <div class="modal fade" id="modalEditarCurriculum" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <c:forEach var="c" items="${curriculumsListar}">
-                        <form action="ServletCurriculum" method="post">
-                            <input type="hidden" name="accion" value="actualizar">
-                            <input type="hidden" name="id" value="${c.idCurriculum}">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalEditarLabel">Editar Curriculum</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label">Años de Experiencia</label>
-                                        <input type="text" name="añosExperiencia" class="form-control" value="${c.añosExperiencia}" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Estudios Obtenidos</label>
-                                        <input type="text" name="estudiosObtenidos" class="form-control" value="${c.estudiosObtenidos}" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Lugar de Estudios</label>
-                                        <input type="text" name="lugarEstudios" class="form-control" value="${c.lugarEstudios}" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Referencia 1</label>
-                                        <input type="text" name="numeroReferencia1" class="form-control" value="${c.numeroReferencia1}">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Referencia 2</label>
-                                        <input type="text" name="numeroReferencia2" class="form-control" value="${c.numeroReferencia2}">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Tipo de Trabajo que Busca</label>
-                                        <input type="text" name="tipoTrabajoBusca" class="form-control" value="${c.tipoTrabajoBusca}">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Habilidades</label>
-                                        <input type="text" name="habilidades" class="form-control" value="${c.habilidades}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                            </div>
-                        </form>
-                    </c:forEach>
                 </div>
             </div>
         </div>

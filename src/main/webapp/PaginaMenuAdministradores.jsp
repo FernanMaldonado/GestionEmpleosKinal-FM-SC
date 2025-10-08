@@ -114,7 +114,6 @@
             <div class="nav-links">
                 <a href="principal.jsp">Inicio</a>
                 <a data-bs-toggle="modal" data-bs-target="#cuentaModal">Cuenta</a>
-                <a href="login.jsp">Login</a>
             </div>
         </nav>
 

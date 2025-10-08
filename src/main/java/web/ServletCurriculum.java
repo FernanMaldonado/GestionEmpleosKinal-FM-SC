@@ -1,15 +1,16 @@
 package web;
 
 import dao.CurriculumDao;
-import model.CurriculumPojo;
-import model.UsuarioPojo;
-
+import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import java.io.IOException;
-import java.util.List;
+import model.CurriculumPojo;
 
+/**
+ *
+ */
 @WebServlet(name = "ServletCurriculum", urlPatterns = {"/ServletCurriculum"})
 public class ServletCurriculum extends HttpServlet {
 
@@ -19,86 +20,78 @@ public class ServletCurriculum extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        HttpSession sesion = req.getSession(false);
-        UsuarioPojo usuario = (UsuarioPojo) sesion.getAttribute("usuario");
-
-        if (usuario == null) {
-            resp.sendRedirect("login.jsp");
-            return;
-        }
-
         String accion = req.getParameter("accion");
-        if (accion == null) accion = "listar";
+        if (accion == null) {
+            accion = "listar";
+        }
 
         switch (accion) {
             case "listar":
-                listarCurriculumsPorUsuario(req, resp, usuario.getIdUsuario());
+                listarCurriculums(req, resp);
                 break;
             case "editar":
-                mostrarFormEditar(req, resp, usuario.getIdUsuario());
+                mostrarFormEditar(req, resp);
                 break;
             case "eliminar":
-                eliminar(req, resp, usuario.getIdUsuario());
+                eliminar(req, resp);
                 break;
             case "mostrarAgregar":
                 req.setAttribute("mostrarModalAgregar", true);
-                listarCurriculumsPorUsuario(req, resp, usuario.getIdUsuario());
+                listarCurriculums(req, resp);
                 break;
             default:
-                listarCurriculumsPorUsuario(req, resp, usuario.getIdUsuario());
+                listarCurriculums(req, resp);
                 break;
         }
     }
 
-    private void listarCurriculumsPorUsuario(HttpServletRequest req, HttpServletResponse resp, int idUsuario)
-            throws ServletException, IOException {
-        List<CurriculumPojo> lista = daoCurriculum.listarPorUsuario(idUsuario);
-        req.setAttribute("curriculumsListar", lista);
-        req.getRequestDispatcher("curriculum.jsp").forward(req, resp);
-    }
-
-    private void mostrarFormEditar(HttpServletRequest req, HttpServletResponse resp, int idUsuario)
+    private void mostrarFormEditar(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         CurriculumPojo curriculum = daoCurriculum.buscarPorId(id);
 
-        if (curriculum == null || curriculum.getIdUsuario() != idUsuario) {
-            resp.sendRedirect("PaginaMenuUsuarios.jsp");
-            return;
-        }
-
         req.setAttribute("curriculumEditar", curriculum);
         req.setAttribute("mostrarModalEditar", true);
-        listarCurriculumsPorUsuario(req, resp, idUsuario);
+
+        listarCurriculums(req, resp); // recarga lista y abre modal editar
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        HttpSession sesion = req.getSession(false);
-        UsuarioPojo usuario = (UsuarioPojo) sesion.getAttribute("usuario");
-        if (usuario == null) {
-            resp.sendRedirect("login.jsp");
-            return;
-        }
-
         String accion = req.getParameter("accion");
-        switch (accion) {
-            case "agregar":
-                agregar(req, resp, usuario);
-                break;
-            case "actualizar":
-                actualizar(req, resp, usuario);
-                break;
+
+        if ("agregar".equals(accion)) {
+            agregar(req, resp);
+        } else if ("actualizar".equals(accion)) {
+            actualizar(req, resp);
         }
     }
 
-    private void agregar(HttpServletRequest req, HttpServletResponse resp, UsuarioPojo usuario)
-            throws IOException {
+    private void listarCurriculums(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        List<CurriculumPojo> lista = daoCurriculum.listarCurriculums();
+        req.setAttribute("curriculumsListar", lista);
+        req.getRequestDispatcher("curriculum.jsp").forward(req, resp);
+    }
+    
+     private void listarCurriculum(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        List<CurriculumPojo> lista = daoCurriculum.listarCurriculums();
+        req.setAttribute("curriculumsListar", lista);
+        req.getRequestDispatcher("PaginaMenuUsuarios.jsp").forward(req, resp);
+    }
+
+    private void agregar(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
         try {
             CurriculumPojo c = new CurriculumPojo();
-            c.setIdUsuario(usuario.getIdUsuario());
+
+            c.setIdUsuario(Integer.parseInt(req.getParameter("idUsuario")));
             c.setAñosExperiencia(req.getParameter("añosExperiencia"));
             c.setEstudiosObtenidos(req.getParameter("estudiosObtenidos"));
             c.setLugarEstudios(req.getParameter("lugarEstudios"));
@@ -109,22 +102,27 @@ public class ServletCurriculum extends HttpServlet {
 
             daoCurriculum.agregar(c);
             resp.sendRedirect("PaginaMenuUsuarios.jsp");
+
         } catch (Exception e) {
             e.printStackTrace();
-            resp.sendRedirect("PaginaMenuUsuarios.jsp");
+            req.setAttribute("error", "Error al agregar curriculum: " + e.getMessage());
+            listarCurriculum(req, resp);
         }
     }
 
-    private void actualizar(HttpServletRequest req, HttpServletResponse resp, UsuarioPojo usuario)
-            throws IOException {
+    private void actualizar(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
         try {
             int id = Integer.parseInt(req.getParameter("id"));
             CurriculumPojo c = daoCurriculum.buscarPorId(id);
-            if (c == null || c.getIdUsuario() != usuario.getIdUsuario()) {
-                resp.sendRedirect("principalUsuario.jsp");
+
+            if (c == null) {
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Curriculum no encontrado");
                 return;
             }
 
+            c.setIdUsuario(Integer.parseInt(req.getParameter("idUsuario")));
             c.setAñosExperiencia(req.getParameter("añosExperiencia"));
             c.setEstudiosObtenidos(req.getParameter("estudiosObtenidos"));
             c.setLugarEstudios(req.getParameter("lugarEstudios"));
@@ -134,25 +132,25 @@ public class ServletCurriculum extends HttpServlet {
             c.setHabilidades(req.getParameter("habilidades"));
 
             daoCurriculum.actualizar(c);
-            resp.sendRedirect("PaginaMenuUsuarios.jsp");
+            resp.sendRedirect("ServletCurriculum?accion=listar");
+
         } catch (Exception e) {
             e.printStackTrace();
-            resp.sendRedirect("PaginaMenuUsuarios.jsp");
+            req.setAttribute("error", "Error al actualizar curriculum: " + e.getMessage());
+            listarCurriculums(req, resp);
         }
     }
 
-    private void eliminar(HttpServletRequest req, HttpServletResponse resp, int idUsuario)
-            throws IOException {
+    private void eliminar(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         try {
             int id = Integer.parseInt(req.getParameter("id"));
-            CurriculumPojo c = daoCurriculum.buscarPorId(id);
-            if (c != null && c.getIdUsuario() == idUsuario) {
-                daoCurriculum.eliminar(id);
-            }
-            resp.sendRedirect("PaginaMenuUsuarios.jsp");
+            daoCurriculum.eliminar(id);
+            resp.sendRedirect("ServletCurriculum?accion=listar");
         } catch (Exception e) {
             e.printStackTrace();
-            resp.sendRedirect("PaginaMenuUsuarios.jsp");
+            req.setAttribute("error", "Error al eliminar curriculum: " + e.getMessage());
+            listarCurriculums(req, resp);
         }
     }
 }
